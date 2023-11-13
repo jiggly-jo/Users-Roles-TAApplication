@@ -1,0 +1,131 @@
+﻿@model MVC_for_TA_Applications.Models.Application1
+
+@inject UserManager<TAUser> UserManager
+@{
+    ViewData["Title"] = "Create";
+}
+
+@if (User.IsInRole("Applicant"))
+{
+    bool hasApplication = false;
+    string s = "";
+    foreach (var user in (IEnumerable<Application1>)ViewData["applications"])
+    {
+        if (user.USERID == UserManager.GetUserId(User))
+        {
+            hasApplication = true;
+            s = user.ID;
+        }
+    }
+    if (hasApplication)
+    {
+        <div id="application">
+            <h1f class="header">Already Applied</h1f>
+
+            <p>
+                <a asp-action="Edit" asp-route-id="@s">Edit Application</a>
+            </p>
+        </div>
+    }
+    else
+    {
+        <h1>Create</h1>
+
+        <h4>Application1</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="ID" class="control-label"></label>
+                        <input asp-for="ID" class="form-control" />
+                        <span asp-validation-for="ID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PhoneNumber" class="control-label"></label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Address" class="control-label"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Degree" class="control-label"></label>
+                        <input asp-for="Degree" class="form-control" />
+                        <span asp-validation-for="Degree" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Program" class="control-label"></label>
+                        <input asp-for="Program" class="form-control" />
+                        <span asp-validation-for="Program" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="GPA" class="control-label"></label>
+                        <input asp-for="GPA" class="form-control" />
+                        <span asp-validation-for="GPA" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Hours" class="control-label"></label>
+                        <input asp-for="Hours" class="form-control" />
+                        <span asp-validation-for="Hours" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PersonalStatement" class="control-label"></label>
+                        <input asp-for="PersonalStatement" class="form-control" />
+                        <span asp-validation-for="PersonalStatement" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="EnglishFluency1" class="control-label"></label>
+                        <input asp-for="EnglishFluency1" class="form-control" />
+                        <span asp-validation-for="EnglishFluency1" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SemestersCompleted" class="control-label"></label>
+                        <input asp-for="SemestersCompleted" class="form-control" />
+                        <span asp-validation-for="SemestersCompleted" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LinkedIn" class="control-label"></label>
+                        <input asp-for="LinkedIn" class="form-control" />
+                        <span asp-validation-for="LinkedIn" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ApplicationDate" class="control-label"></label>
+                        <input readonly asp-for="ApplicationDate" class="form-control" />
+                        <span asp-validation-for="ApplicationDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+    }
+}
+else if (User.IsInRole("Professor") || User.IsInRole("Administrator"))
+{
+    <div class="oop_reroute">
+        <h1 class="header">
+            Oops you don't belong here
+        </h1>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary my-2 my-sm-0">Home</a>
+    </div>
+}
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

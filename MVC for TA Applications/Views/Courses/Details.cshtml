@@ -1,0 +1,108 @@
+﻿@model MVC_for_TA_Applications.Models.Course
+
+@inject UserManager<TAUser> UserManager
+
+    @{
+    ViewData["Title"] = "Details";
+    }
+
+    <h1>Details</h1>
+
+    <div>
+        <h4>Course</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Section)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Section)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.SemestersOffered)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.SemestersOffered)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Years)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Years)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Department)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Department)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CourseNumber)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CourseNumber)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ProfessorUID)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ProfessorUID)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ProfessorName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ProfessorName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TimeAndDays)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TimeAndDays)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Location)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Location)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CreditHours)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreditHours)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Enrollment)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Enrollment)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Note)
+            </dt>
+            @if (User.IsInRole("Administrator"))
+            {
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Note)
+                </dd>
+            }
+
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Update" asp-route-id="@Model.ID">Update</a> |
+        <a asp-action="List">Back to List</a>
+    </div>

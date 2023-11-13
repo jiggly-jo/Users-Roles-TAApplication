@@ -1,0 +1,118 @@
+﻿@model IEnumerable<MVC_for_TA_Applications.Models.Application1>
+
+@inject UserManager<TAUser> UserManager
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1 class="header">Applicants List</h1>
+
+@if (User.IsInRole("Administrator"))
+{
+    <p>
+        <a asp-action="Index" class="btn btn-secondary my-2 my-sm-0"> Index</a>
+    </p>
+
+    <table class="style_table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Degree)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Program)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GPA)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Hours)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EnglishFluency1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SemestersCompleted)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ApplicationDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ModificationDate)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Degree)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Program)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GPA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Hours)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EnglishFluency1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SemestersCompleted)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ApplicationDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ModificationDate)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.ID">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+    <div id="list_buttons">
+        <p>
+            <a asp-action="Create" class="btn btn-danger my-2 my-sm-0"> Create New</a>
+        </p>
+
+    </div>
+}
+else
+{
+<div class="oop_reroute">
+    <h1 class="header">
+        Oops you don't belong here
+    </h1>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary my-2 my-sm-0">Home</a>
+</div>
+}

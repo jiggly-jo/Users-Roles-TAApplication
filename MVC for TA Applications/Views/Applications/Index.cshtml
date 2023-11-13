@@ -1,0 +1,114 @@
+﻿@model IEnumerable<MVC_for_TA_Applications.Models.Application>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@{
+    if (User.IsInRole("Administrator"))
+    {
+        double GPA = 0;
+        double maxGPA = -1;
+        string topGPAStudent = "";
+        double maxHours = -1;
+        string topHourStudent = "";
+        int csCount = 0;
+        foreach (var item in Model)
+        {
+            GPA += (item.GPA);
+
+            if (item.GPA > maxGPA)
+            {
+                maxGPA = item.GPA;
+                topGPAStudent = item.Name;
+
+            }
+            if (item.Hours > maxHours)
+            {
+                maxHours = item.Hours;
+                topHourStudent = item.Name;
+            }
+            if (item.Program == "CS")
+            {
+                csCount++;
+            }
+        }
+        var numApplicants = Model.ToArray<Application>().Length;
+        GPA = GPA / numApplicants;
+        <h1 class="header">
+            Overall Application Information
+        </h1>
+
+
+        <div id="index_body">
+            <table class="style_table">
+                <thead>
+                    <tr>
+                        <th>
+                            Overall Info
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            # of Applicants:
+                        </td>
+                        <td>
+                            @numApplicants
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Average GPA:
+                        </td>
+                        <td>
+                            @GPA
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Top GPA:
+                        </td>
+                        <td>
+                            @topGPAStudent
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Top Hours:
+                        </td>
+                        <td>
+                            @topHourStudent
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            # of CS Majors
+                        </td>
+                        <td>
+                            @csCount
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <hr />
+        </div>
+        <div>
+            <a asp-action="List" class="btn btn-danger my-2 my-sm-0">Applicants List >></a>
+        </div>
+    }
+    else if(User.IsInRole("Applicant"))
+    {
+        <div>
+            <h1>
+                Bruh
+            </h1>
+        </div>
+    }
+
+}

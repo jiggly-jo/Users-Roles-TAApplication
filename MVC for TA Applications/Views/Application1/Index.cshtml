@@ -1,0 +1,164 @@
+﻿@model IEnumerable<MVC_for_TA_Applications.Models.Application1>
+
+@inject UserManager<TAUser> UserManager
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@{
+    if (User.IsInRole("Administrator"))
+    {
+        double GPA = 0;
+        double maxGPA = -1;
+        string topGPAStudent = "";
+        double maxHours = -1;
+        string topHourStudent = "";
+        int csCount = 0;
+        foreach (var item in Model)
+        {
+            GPA += (item.GPA);
+
+            if (item.GPA > maxGPA)
+            {
+                maxGPA = item.GPA;
+                topGPAStudent = item.Name;
+
+            }
+            if (item.Hours > maxHours)
+            {
+                maxHours = item.Hours;
+                topHourStudent = item.Name;
+            }
+            if (item.Program == "CS")
+            {
+                csCount++;
+            }
+        }
+        var numApplicants = Model.ToArray<Application1>().Length;
+        GPA = GPA / numApplicants;
+        <h1 class="header">
+            Overall Application Information
+        </h1>
+
+
+        <div id="index_body">
+            <table class="style_table">
+                <thead>
+                    <tr>
+                        <th>
+                            Overall Info
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            # of Applicants:
+                        </td>
+                        <td>
+                            @numApplicants
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Average GPA:
+                        </td>
+                        <td>
+                            @GPA
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Top GPA:
+                        </td>
+                        <td>
+                            @topGPAStudent
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Top Hours:
+                        </td>
+                        <td>
+                            @topHourStudent
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            # of CS Majors
+                        </td>
+                        <td>
+                            @csCount
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <hr />
+        </div>
+        <div>
+            <a asp-action="List" class="btn btn-danger my-2 my-sm-0">Applicants List >></a>
+        </div>
+    }
+    else if (User.IsInRole("Applicant"))
+    {
+        bool hasApplication = false;
+        string s = "";
+        foreach (var user in Model)
+        {
+            if (user.USERID == UserManager.GetUserId(User))
+            {
+                hasApplication = true;
+                s = user.ID;
+            }
+        }
+        if (hasApplication)
+        {
+            <div id="application">
+                <h1f class="header">Application</h1f>
+
+                <p>
+                    <a asp-action="Details" asp-route-id="@s">Application Details</a>
+                    <a asp-action="Edit" asp-route-id="@s">Edit Application</a>
+                </p>
+            </div>
+        }
+        else
+        {
+            <div id="application" class="default_header">
+                <h1 class="header"> No Application Found</h1>
+
+                <p>
+                    <a asp-action="Create" type="submit" class="btn btn-danger">Create</a>
+                </p>
+            </div>
+        }
+        <h2>Time Available:</h2>
+        var counter = 0; 
+        foreach(var slot in (List<Availability>)ViewData["Schedule"])
+        {
+            if (slot.Available)
+            {
+                counter += 15;
+            }
+        }
+        <div>Available Amount: @counter minutes</div>
+        <a asp-controller="Availability" asp-action="Index" class="btn btn-secondary my-2 my-sm-0">Availability</a>
+    }
+
+    else
+    {
+        <div class="oop_reroute">
+            <h1 class="header">
+                Oops you don't belong here
+            </h1>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-secondary my-2 my-sm-0">Home</a>
+        </div>
+    }
+
+
+}

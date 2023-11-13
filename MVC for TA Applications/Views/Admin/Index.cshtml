@@ -1,0 +1,147 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@inject RoleManager<IdentityRole> RoleManager
+@inject UserManager<TAUser> UserManger
+
+    @{
+
+    }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <h1 class="header" id="hello">Header</h1>
+    @if (User.IsInRole("Administrator"))
+    {
+<script>
+        function change_roles(userid, role, add_remove) {
+            var URL = "/Admin/Change_Role";
+            var DATA = { userid: userid, role: role, add_remove: add_remove };
+            Swal.fire({
+                title: 'Do you want to save the changes?',
+                showDenyButton: true,
+                confirmButtonText: 'Yes',
+                denyButtonText: 'No',
+                customClass: {
+                    actions: 'my-actions',
+                    confirmButton: 'order-2',
+                    denyButton: 'order-3',
+                }
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    $.post(URL, DATA)
+                        .done(function (result) {
+                            swal.fire("Edit Successful")
+                            if (add_remove == 'remove') {
+                                var newE = "<input type=\"checkbox\" id=\"" + userid + role +"\" onclick =\"change_roles('" + userid + "', '" + role + "', 'add')\" >";
+                            } else {
+                                var newE = "<input type=\"checkbox\" id=\"" + userid + role +"\" onclick =\"change_roles('" + userid + "', '" + role + "', 'remove')\" checked>";
+                            }
+
+                            $("#" + userid + role).replaceWith(newE);
+                        })
+                        .fail(function (result) {
+                            swal.fire("Edit Failed")
+                        })
+                        .always(function () {
+                            $("aspinner").hide();
+                        });
+
+                } else if (result.isDenied) {
+                    Swal.fire('Changes are not saved', '', 'info')
+                    if (add_remove == 'add') {
+                        var newE = "<input type=\"checkbox\" id=\"" + userid + role + "\" onclick =\"change_roles('" + userid + "', '" + role + "', 'add')\" >";
+                    } else {
+                        var newE = "<input type=\"checkbox\" id=\"" + userid + role + "\" onclick =\"change_roles('" + userid + "', '" + role + "', 'remove')\" checked>";
+                    }
+                    $("#" + userid + role).replaceWith(newE);
+                }
+            });
+
+        }
+</script>
+    <template id="my-template">
+        <swal-icon type="warning" color="red"></swal-icon>
+        <swal-button type="confirm">
+            Save As
+        </swal-button>
+        <swal-button type="cancel">
+            Cancel
+        </swal-button>
+        <swal-param name="allowEscapeKey" value="false" />
+        <swal-param name="customClass"
+                    value='{ "popup": "my-popup" }' />
+    </template>
+
+    <table class="style_table" id="Roles">
+        <thead>
+
+            <tr>
+                <th>Username</th>
+                @foreach (var role in ViewData["roles"].ToString().Split(','))
+                {
+                    <th>@role</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in ViewData["users"].ToString().Split(','))
+            {
+
+            <tr>
+                <td>@user</td>
+                @foreach (var role in ViewData["roles"].ToString().Split(','))
+                {
+                        var name = await UserManger.FindByNameAsync(user);
+                        string IdandRole = await UserManger.GetUserIdAsync(name) + "" + role;
+                        @if (await UserManger.IsInRoleAsync(name, role))
+                        {
+
+                            <td>
+                                <input type="checkbox" id="@IdandRole" onclick="change_roles('@await UserManger.GetUserIdAsync(name)', '@role', 'remove')" checked="checked">
+                            </td>
+                        }
+                        else
+                        {
+
+                            <td>
+                                <input type="checkBox" id="@IdandRole" onclick="change_roles('@await UserManger.GetUserIdAsync(name)', '@role', 'add')">
+                            </td>
+                        }
+                    }
+            </tr>
+            }
+
+
+
+        </tbody>
+    </table>
+}
+else
+{
+    <div id="access_denied">
+        <h1 class="header">Access Denied </h1>
+    </div>
+
+}
+
+<script>
+    function checkBoxChange(obj, name, role) {
+        if ($(obj).is(":checked")) {
+            alert("Yes checked"); //when checked
+        } else {
+            alert("Not checked"); //when not checked
+        }
+    }
+</script>
+    <script>
+        $(document).ready(function () {
+            $.noConflict();
+            $('#Roles').DataTable();
+        });
+    </script>

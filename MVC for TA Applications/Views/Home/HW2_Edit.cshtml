@@ -1,0 +1,187 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!--
+  Author:    John Huynh
+  Partner:   None
+  Date:      September 10,2021
+  Course:    CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540 and John Huynh- This work may not be copied for use in Academic Coursework.
+
+  I, John Huynh, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source.  Any references used in the completion of the assignment are cited in my README file.
+
+  File Contents
+
+     This is a forms page where applicants can put their information and submit it so it shows on the applicant
+    info page. Or they can edit their pre-existing information.
+-->
+<!--header for Edit page-->
+<!--Use form elements from bootstrap. Application page-->
+<form class="needs-validation" novalidate>
+    <div class="form-group">
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom01">First name</label>
+                <input type="text" class="form-control" id="validationCustom01" placeholder="First name" required>
+                <div class="invalid-feedback">
+                    Please provide a First name
+                </div>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="validationCustom02">Last name</label>
+                <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" required>
+                <div class="invalid-feedback">
+                    Please provide a Last name
+                </div>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="validationCustomUsername">U ID</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend">uID</span>
+                    </div>
+                    <input type="text" class="form-control" id="validationCustomUsername" placeholder="uXXXXXXX" aria-describedby="inputGroupPrepend" required>
+                    <div class="invalid-feedback">
+                        Please choose a uID
+                    </div>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputEmail4">Email</label>
+        <input type="email" class="form-control" id="inputEmail4" required>
+        <div class="invalid-feedback">
+            Please provide an email.
+        </div>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inputAddress">Address</label>
+        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" required>
+        <div class="invalid-feedback">
+            Please choose a address
+        </div>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputAddress2">Address 2</label>
+        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+    </div>
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+            <label for="validationCustom03">City</label>
+            <input type="text" class="form-control" id="validationCustom03" placeholder="City" required>
+            <div class="invalid-feedback">
+                Please provide a valid city.
+            </div>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <label for="inputState">State</label>
+            <select id="inputState" class="form-control" required>
+                <option>UT</option>
+                <option>KS</option>
+                <option>NV</option>
+                <option>AZ</option>
+            </select>
+            <div class="invalid-feedback">
+                Please Choose a state
+            </div>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="validationCustom05">Zip</label>
+            <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required>
+            <div class="invalid-feedback">
+                Please provide a valid zip.
+            </div>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputPhone">Home Phone:</label>
+        <input type="text" class="form-control" id="inputPhone" placeholder="XXX-XXX-XXXX" required>
+        <div class="invalid-feedback">
+            Please provide a phone number
+        </div>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputGpa">GPA: </label>
+        <input type="text" class="form-control" id="inputGpa" placeholder="4.0" required>
+        <div class="invalid-feedback">
+            Please provide a GPA
+        </div>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputLinkedIn">LinkedIn</label>
+        <input type="text" class="form-control" id="inputLinkedIn" placeholder="https://www.linkedin.com/in/">
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlFile1">Resume: </label>
+        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+    </div>
+    <div class="form-group">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+            <label class="form-check-label" for="invalidCheck">
+                Agree to terms and conditions
+            </label>
+            <div class="invalid-feedback">
+                You must agree before submitting.
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-danger">Submit</button>
+</form>
+
+<!---->
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>

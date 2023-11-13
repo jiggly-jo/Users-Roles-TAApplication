@@ -1,0 +1,117 @@
+﻿@model MVC_for_TA_Applications.Models.Course
+
+@{
+    ViewData["Title"] = "Delete";
+}
+@if (User.IsInRole("Administrator"))
+{
+    <h1>Delete</h1>
+
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Course</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Section)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Section)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.SemestersOffered)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.SemestersOffered)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Years)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Years)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Department)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Department)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CourseNumber)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CourseNumber)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ProfessorUID)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ProfessorUID)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ProfessorName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ProfessorName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TimeAndDays)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TimeAndDays)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Location)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Location)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CreditHours)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreditHours)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Enrollment)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Enrollment)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Note)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Note)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="ID" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a asp-action="List">Back to List</a>
+        </form>
+    </div>
+}
+else
+{
+    <div class="oop_reroute">
+        <h1 class="header">
+            Oops you don't belong here
+        </h1>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary my-2 my-sm-0">Home</a>
+    </div>
+}
+

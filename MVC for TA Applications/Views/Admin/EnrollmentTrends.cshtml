@@ -1,0 +1,54 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<MVC_for_TA_Applications.Models.EnrollmentOverTime>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+
+
+<figure class="highcharts-figure">
+    <div id="container"></div>
+</figure>
+<form>
+    <div class="form-group">
+        <label for="labelDate">Start Date:</label>
+        <input type="text" id="inputDate" value="2021-11-15">
+        <small id="inputHelp" class="form-text text-muted">Example Input: YYYY-MM-DD</small>
+    </div>
+</form>
+<form>
+    <div class="form-group">
+        <label for="labelEndDate">End Date:</label>
+        <input type="text" id="inputEndDate" value="2021-11-29">
+        <small id="inputHelp" class="form-text text-muted">Example Input: YYYY-MM-DD</small>
+    </div>
+</form>
+
+<select id="selectCourse">
+    <option selected="selected">CS 1400</option>
+    <option>CS 1410</option>
+    <option>CS 1420</option>
+    <option>CS 2100</option>
+    <option>CS 2420</option>
+    <option>CS 3100</option>
+    <option>CS 3200</option>
+    <option>CS 3500</option>
+    <option>CS 4150</option>
+    <option>CS 4400</option>
+    <option>CS 4480</option>
+    <option>CS 4500</option>
+    <option>CS 4530</option>
+</select>
+
+<a id="myBtn" class="btn btn-secondary btn-sm">Get Data</a>
+
+<script type="text/javascript" src="~/js/charts.js"></script>
+
+
